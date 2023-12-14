@@ -7,7 +7,7 @@ export default class Loader extends Component {
       <Circles
         height="80"
         width="80"
-        color="#4fa94d"
+        color="#0a1897"
         ariaLabel="circles-loading"
         wrapperStyle={{}}
         wrapperClass=""
