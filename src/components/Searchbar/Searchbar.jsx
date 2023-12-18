@@ -1,52 +1,50 @@
-import React, { Component } from 'react';
+import { useState } from 'react';
 import Notiflix from 'notiflix';
 import css from './Searchbar.module.css';
 
-export default class Searchbar extends Component {
-  state = {
-    query: '',
-  };
+const Searchbar = ({ onSubmit }) => {
+  const [query, setQuery] = useState('');
 
-  handleChange = event => {
+  const handleChange = event => {
     const query = event.currentTarget.value;
-    this.setState({ query: query });
+    setQuery(query);
   };
 
-  handleSubmit = event => {
+  const handleSubmit = event => {
     event.preventDefault();
 
-    if (this.state.query.trim() === '') {
+    if (query.trim() === '') {
       return Notiflix.Notify.warning('Please enter word for search');
     }
 
-    this.props.onSubmit(this.state);
-    this.reset();
+    onSubmit(query);
+    reset();
   };
 
-  reset = () => {
-    this.setState({ query: '' });
+  const reset = () => {
+    setQuery('');
   };
 
-  render() {
-    return (
-      <header className={css.searchbar}>
-        <form className="form" onSubmit={this.handleSubmit}>
-          <button type="submit" className={css.buttonSearch}>
-            <span className="button-label">Search</span>
-          </button>
+  return (
+    <header className={css.searchbar}>
+      <form className="form" onSubmit={handleSubmit}>
+        <button type="submit" className={css.buttonSearch}>
+          <span className="button-label">Search</span>
+        </button>
 
-          <input
-            className={css.inputSearch}
-            type="text"
-            autoComplete="off"
-            autoFocus
-            value={this.state.query}
-            onChange={this.handleChange}
-            name="search"
-            placeholder="write your word"
-          />
-        </form>
-      </header>
-    );
-  }
-}
+        <input
+          className={css.inputSearch}
+          type="text"
+          autoComplete="off"
+          autoFocus
+          value={query}
+          onChange={handleChange}
+          name="search"
+          placeholder="write your word"
+        />
+      </form>
+    </header>
+  );
+};
+
+export default Searchbar;

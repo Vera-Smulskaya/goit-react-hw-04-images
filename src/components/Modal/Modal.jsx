@@ -15,7 +15,7 @@ const Modal = ({ closeModal, image, alt }) => {
     return () => {
       window.removeEventListener('keydown', handleEsc);
     };
-  });
+  }, [closeModal]);
 
   const overlayClick = event => {
     if (event.currentTarget === event.target) {
