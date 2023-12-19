@@ -16,8 +16,7 @@ const Searchbar = ({ onSubmit }) => {
     if (query.trim() === '') {
       return Notiflix.Notify.warning('Please enter word for search');
     }
-
-    onSubmit(query);
+    onSubmit({ query });
     reset();
   };
 
