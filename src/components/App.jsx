@@ -8,8 +8,6 @@ import Modal from './Modal/Modal';
 import Loader from './Loader/Loader';
 import { useEffect, useState } from 'react';
 
-let isLoaded = false;
-
 export const App = () => {
   const [images, setImages] = useState([]);
   const [page, setPage] = useState(1);
@@ -22,12 +20,12 @@ export const App = () => {
   const [lastSearchQuery, setLastSearchQuery] = useState('');
 
   useEffect(() => {
-    if (isLoaded) {
+    if (!searchImages) {
       return;
     }
-    isLoaded = true;
-    fetchImages('', 1);
-  }, []);
+    setIsLoading(true);
+    fetchImages(searchImages, page);
+  }, [searchImages, page]);
 
   const fetchImages = async (query, page) => {
     setIsLoading(true);
@@ -59,7 +57,6 @@ export const App = () => {
     const nextPage = page + 1;
 
     setPage(nextPage);
-    fetchImages(searchImages, nextPage);
   };
 
   const toggleModal = (largeImageURL, imageTags) => {
@@ -74,9 +71,7 @@ export const App = () => {
     if (query !== lastSearchQuery) {
       setSearchImages(query);
       setPage(1);
-      fetchImages(query, 1);
       setImages([]);
-      setLastSearchQuery(query);
     } else {
       Notiflix.Notify.info(`Sorry! You are already looking for ${query}`);
     }
