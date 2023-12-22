@@ -17,7 +17,7 @@ export const App = () => {
   const [showModal, setShowModal] = useState(false);
   const [largeImageURL, setLargeImageURL] = useState([]);
   const [imageTags, setImageTags] = useState('');
-  const [lastSearchQuery, setLastSearchQuery] = useState('');
+  const [lastSearchQuery] = useState('');
 
   useEffect(() => {
     if (!searchImages) {
